@@ -1,0 +1,6 @@
+server:
+  port: 8603
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8602/eureka/, http://localhost:8602/eureka/

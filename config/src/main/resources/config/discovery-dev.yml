@@ -1,0 +1,41 @@
+spring:
+  profiles: single
+server:
+  port: 8602
+eureka:
+  instance:
+    hostname: 127.0.0.1
+    preferIpAddress: false
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 20
+  server:
+    enableSelfPreservation: true
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+---
+spring:
+  profiles: peer1
+server:
+  port: 8602
+eureka:
+  instance:
+    hostname: peer1
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://peer2:18602/eureka/
+---
+spring:
+  profiles: peer2
+server:
+  port: 18602
+eureka:
+  instance:
+    hostname: peer2
+    preferIpAddress: true
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8602/eureka/

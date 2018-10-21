@@ -1,0 +1,12 @@
+server:
+  port: 8666
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8602/eureka/, http://localhost:8602/eureka/
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true

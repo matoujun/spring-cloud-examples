@@ -1,0 +1,32 @@
+server:
+  port: 8604
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: always
+  endpoints:
+    jmx:
+      exposure:
+       include: '*'
+    web:
+     exposure:
+      include: '*'
+      base-path: /actuator
+    cors:
+      allowed-origins: true
+      enabled-by-default: false
+---
+spring:
+  profiles: single
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8602/eureka/
+---
+spring:
+  profiles: multiple
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8602/eureka/, http://peer2:18602/eureka/

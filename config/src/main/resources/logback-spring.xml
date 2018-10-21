@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- slf4j日志配置文件 -->
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+    <!-- 不同环境设置不同的日志目录 -->
+    <springProfile name="dev">
+        <property name="base-dir" value="/tmp/cloud/config"/>
+    </springProfile>
+    <springProfile name="qa">
+        <property name="base-dir" value="/tmp/cloud/config"/>
+    </springProfile>
+    <springProfile name="prod">
+        <property name="base-dir" value="/tmp/cloud/config"/>
+    </springProfile>
+
+    <property name="encoding" value="UTF-8"/>
+    <property name="normal-pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level [%thread] %logger{10}.%M:%L  %msg%n"/>
+    <property name="plain-pattern" value="%d{yyyy-MM-dd HH:mm:ss} %msg%n"/>
+    <property name="std-pattern" value="%d{HH:mm:ss.SSS}[%thread][%-5level] %msg %c:%L%n"/>
+    <property name="uniform-pattern"
+              value="[%-4level][%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}][%thread][%logger{35}.%M:%line] %msg%n"/>
+
+    <!--console log-->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${uniform-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+        </filter>
+    </appender>
+
+
+    <appender name="errorAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${base-dir}/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${base-dir}/warn.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${uniform-pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="infoAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${base-dir}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${base-dir}/info.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${uniform-pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="publicAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${base-dir}/public.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${base-dir}/public.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${uniform-pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="debugAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${base-dir}/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${base-dir}/debug.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${uniform-pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="traceAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${base-dir}/trace.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${base-dir}/trace.log.%d{yyyy-MM-dd}</fileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${uniform-pattern}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter"><!-- 只打印错误日志 -->
+            <level>TRACE</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+
+    <logger name="org.matoujun">
+        <level value="WARN"/>
+        <level value="ERROR"/>
+        <appender-ref ref="errorAppender"/>
+    </logger>
+
+    <logger name="org.matoujun">
+        <level value="INFO"/>
+        <appender-ref ref="infoAppender"/>
+    </logger>
+
+    <logger name="org.matoujun">
+        <level value="TRACE"/>
+        <appender-ref ref="traceAppender"/>
+    </logger>
+
+    <logger name="org.matoujun">
+        <level value="DEBUG"/>
+        <appender-ref ref="debugAppender"/>
+    </logger>
+
+
+    <logger name="org.matoujun" level="INFO" additivity="false">
+        <appender-ref ref="publicAppender"/>
+    </logger>
+
+
+    <logger name="org.matoujun" level="DEBUG" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="com" level="INFO" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="org" level="INFO" additivity="false">
+        <appender-ref ref="stdout"/>
+    </logger>
+
+    <logger name="org.springframework.cloud.config" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="publicAppender"/>
+        <appender-ref ref="errorAppender"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+
+    <!--additivity: the logger won't transmit log to its ancestor's appender -->
+    <logger name="org.springframework" additivity="false">
+        <level value="WARN"/>
+        <level value="ERROR"/>
+        <appender-ref ref="errorAppender"/>
+        <appender-ref ref="stdout"/>
+    </logger>
+
+</configuration>

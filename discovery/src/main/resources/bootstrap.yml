@@ -1,0 +1,17 @@
+spring:
+  profiles: dev
+  application:
+    name: discovery
+  cloud:
+    config:
+      uri: http://127.0.0.1:8601, http://10.179.100.2:8601
+      name: ${spring.application.name}
+---
+spring:
+  profiles: prod
+  application:
+    name: discovery
+  cloud:
+    config:
+      uri: http://localhost:8601, http://localhost:8601
+      name: ${spring.application.name}

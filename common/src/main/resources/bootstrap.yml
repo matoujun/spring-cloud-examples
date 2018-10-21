@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: common
+  cloud:
+    config:
+      uri: http://localhost:8601

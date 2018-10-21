@@ -1,0 +1,29 @@
+server:
+  port: 8603
+app:
+  sso:
+    loginUrl: http://abc.matoujun.org/sso/login
+    appId: 1111
+    appKey: 222222
+    jumpTo: welcome
+    cookie:
+        domain: abc.matoujun.org
+        name: _abc_matoujun
+        age: 17000
+    checkCodeUrl: http://abc.matoujun.org/sso/api/check_code
+    logoutUrl: http://abc.matoujun.org/sso/logout
+---
+spring:
+  profiles: single
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8602/eureka/
+
+---
+spring:
+  profiles: multiple
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8602/eureka/, http://peer2:18602/eureka/

@@ -1,0 +1,18 @@
+spring:
+  profiles: dev
+  application:
+    name: uaa
+  cloud:
+    config:
+      uri: http://127.0.0.1:8601
+      # api, common configuration files will be loaded
+      name: ${spring.application.name},common
+---
+spring:
+  profiles: prod
+  application:
+    name: uaa
+  cloud:
+    config:
+      uri: http://localhost:8601, http://localhost:8601
+      name: ${spring.application.name},common

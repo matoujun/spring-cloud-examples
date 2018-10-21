@@ -1,0 +1,18 @@
+server:
+  port: 8601
+
+#This is a profile separator
+---
+
+#development environment properties which will override preceding ones.
+spring.profiles: dev
+#Native presents using local property file by config server.
+#the default config method is using git
+spring.profiles.include:
+      - native
+
+---
+#production environment properties
+spring.profiles: prod
+spring.profiles.include:
+      - native

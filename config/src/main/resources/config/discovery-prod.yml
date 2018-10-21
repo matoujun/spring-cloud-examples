@@ -1,0 +1,29 @@
+spring:
+  profiles: peer1
+server:
+  port: 8602
+  server:
+    enableSelfPreservation: true
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 15
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8602/eureka/
+---
+spring:
+  profiles: peer2
+server:
+  port: 8602
+  server:
+    enableSelfPreservation: true
+eureka:
+  instance:
+    preferIpAddress: true
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 15
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8602/eureka/

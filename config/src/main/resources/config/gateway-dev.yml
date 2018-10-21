@@ -1,0 +1,29 @@
+server:
+  port: 8600
+---
+spring:
+  profiles: single
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8602/eureka/
+
+---
+spring:
+  profiles: multiple
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://peer1:8602/eureka/, http://peer2:18602/eureka/
+
+
