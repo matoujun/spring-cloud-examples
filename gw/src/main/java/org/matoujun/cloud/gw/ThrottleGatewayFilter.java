@@ -77,15 +77,15 @@ public class ThrottleGatewayFilter implements GatewayFilter {
 
 	@Override
 	public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-//		DiLog diLog = new DiLog();
+
 		//we can replace the defualt token bucket easily.
 		TokenBucket tokenBucket = TokenBuckets.builder()
 				.withCapacity(capacity)
 				.withFixedIntervalRefillStrategy(refillTokens, refillPeriod, refillUnit)
 				.build();
-//		diLog.add("urlPath", exchange.getRequest().getURI().getRawPath());
+
         //TODO: get a token bucket for a key
-//        log.info(diLog.toString());
+
         boolean consumed = tokenBucket.tryConsume();
         if (consumed) {
             return chain.filter(exchange);
