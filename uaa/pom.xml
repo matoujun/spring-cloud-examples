@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.matoujun.cloud</groupId>
-	<artifactId>api</artifactId>
+	<artifactId>uaa</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>api</name>
+	<name>uaa</name>
 	<description>api spring Boot project of cloud</description>
 
 	<parent>
