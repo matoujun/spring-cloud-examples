@@ -1,0 +1,39 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8602/eureka/
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+app:
+  datasource:
+        url: jdbc:mysql://localhost:13306/cloud?useUnicode=yes&characterEncoding=utf-8&autoReconnect=true&maxReconnects=3&connectTimeout=5000&socketTimeout=5000&zeroDateTimeBehavior=convertToNull
+        username: root
+        password: root
+        driverClassName: com.mysql.jdbc.Driver
+        type: com.zaxxer.hikari.HikariDataSource
+        hikari:
+          connectionTimeout: 30000
+          idleTimeout: 60000
+          cachePrepStmts: true
+          prepStmtCacheSize: 300
+          prepStmtCacheSqlLimit: 2048
+          useServerPrepStmts: true
+          maintainTimeStats: false
+          useLocalSessionState: true
+          rewriteBatchedStatements: true
+          cacheResultSetMetadata: true
+          cacheServerConfiguration: true
+          maximumPoolSize: 60
+
+  sso:
+    loginUrl: http://abc.matoujun.org/sso/login
+    appId: 1111
+    appKey: 222222
+    jumpTo: welcome
+    cookie:
+        domain: abc.matoujun.org
+        name: _abc_matoujun
+        age: 17000
+    checkCodeUrl: http://abc.matoujun.org/sso/api/check_code
+    logoutUrl: http://abc.matoujun.org/sso/logout

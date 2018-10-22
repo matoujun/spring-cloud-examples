@@ -1,14 +1,15 @@
 package org.matoujun.cloud.api.model;
 
-import org.matoujun.cloud.common.TimeUtil;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vladmihalcea.hibernate.type.json.JsonStringType;
 import io.netty.util.internal.StringUtil;
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
+import org.matoujun.cloud.common.TimeUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
