@@ -1,14 +1,14 @@
 spring:
-  profiles: dev
+  profiles: localConfig
   application:
     name: discovery
   cloud:
     config:
-      uri: http://127.0.0.1:8601, http://10.179.100.2:8601
+      uri: http://127.0.0.1:8601
       name: ${spring.application.name}
 ---
 spring:
-  profiles: prod
+  profiles: prodConfig
   application:
     name: discovery
   cloud:

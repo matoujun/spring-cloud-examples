@@ -1,5 +1,6 @@
 package org.matoujun.cloud.uaa.web.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.matoujun.cloud.common.User;
 import org.matoujun.cloud.common.http.RestResponse;
 import org.matoujun.cloud.common.sso.DomainInfo;
@@ -20,6 +21,7 @@ import java.util.Map;
 /**
  * @author matoujun
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
@@ -32,6 +34,8 @@ public class UserController {
   @GetMapping("/login")
   public RestResponse<Map<String, Object>> userGet(HttpServletRequest request) {
     RestResponse<Map<String, Object>> restResponse = new RestResponse<>();
+    String requestDomain = request.getHeader("x-forwarded-host");
+    log.info("requestDomain:" + requestDomain);
     User user = userService.getCurrentUser(request);
     restResponse.setErrno(1);
     restResponse.setErrmsg("OK");

@@ -1,5 +1,5 @@
 spring:
-  profiles: dev
+  profiles: localConfig
   application:
     name: gateway
   cloud:

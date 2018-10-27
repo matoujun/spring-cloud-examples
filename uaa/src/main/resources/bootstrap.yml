@@ -1,5 +1,5 @@
 spring:
-  profiles: dev
+  profiles: localConfig
   application:
     name: uaa
   cloud:
@@ -9,7 +9,7 @@ spring:
       name: ${spring.application.name},common
 ---
 spring:
-  profiles: prod
+  profiles: prodConfig
   application:
     name: uaa
   cloud:
